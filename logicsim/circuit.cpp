@@ -51,8 +51,13 @@ void Circuit::test()
 	
 }
 
+/*
+  Update the parsing code in Circuit::parse() to support adding 
+  NotGate gates.
+*/
 bool Circuit::parse(const char* fname)
 {
+    //std::cout << "PARSE" << std::endl;
     std::ifstream inFile(fname);
     if(!inFile)
     {
@@ -107,9 +112,24 @@ bool Circuit::parse(const char* fname)
                     getline(ss, s_in2, ',');
                     std::string s_output;
                     getline(ss, s_output, ',');
+                    //std::cout << s_in1 << " " << s_in2 << " " << s_output << std::endl;
                     m_gates.push_back(new Or2Gate(m_wires[stoi(s_in1)], m_wires[stoi(s_in2)], m_wires[stoi(s_output)]));
                 }
                 //Add code here to support the NOT gate type
+                //std::cout << "S_TYPE: " << s_type << std::endl;
+                if(s_type == "NOT"){  
+                    std::string s_in1;
+                    getline(ss, s_in1, ',');
+                    //std::string s_in2;
+                    //getline(ss, s_in2, ',');
+                    std::string s_output;
+                    getline(ss, s_output, ',');
+                    //std::cout << "S_TYPE TEST" << std::endl;
+                    //std::cout << s_in1 << " " << s_output << std::endl;
+                    m_gates.push_back(new NotGate(m_wires[stoi(s_in1)], m_wires[stoi(s_output)]));  //<------------------------- THIS IS THE PROBLEM
+                    //std::cout << "S_TYPE TEST AFTER" << std::endl;
+                }
+                //std::cout << "AFTER S_TYPE: " << std::endl;
             }
         }
         if(line == "INJECT")
@@ -133,6 +153,7 @@ bool Circuit::parse(const char* fname)
             }
         }
     }
+    //std::cout << "END OF PARSE" << std::endl;
     return true;
 }
 

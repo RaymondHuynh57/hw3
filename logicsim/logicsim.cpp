@@ -8,6 +8,7 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
+  //cout << "TEST" << endl;
 	stringstream ss;
   Circuit C;
   if(argc != 1)

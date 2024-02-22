@@ -4,6 +4,8 @@
 #define NULL 0
 #endif
 
+#include <iostream>
+
 /**
  * Node struct for both problems
  */
@@ -48,7 +50,7 @@ struct Node
  *
  */
 void llpivot(Node *&head, Node *&smaller, Node *&larger, int pivot);
-
+void llpivot_Helper(Node *&head, Node *&smaller, Node *&larger, int pivot, int counter);
 /**
  * Given a linked list pointed to by head, removes (filters out) nodes
  * whose value does not meet the criteria given by the predicate
@@ -77,14 +79,93 @@ Node* llfilter(Node* head, Comp pred);
 // implement the above function now.
 //*****************************************************************************
 
+
 template <typename Comp>
 Node* llfilter(Node* head, Comp pred)
 {
     //*********************************************
     // Provide your implementation below
     //*********************************************
+/*
+  if(head == nullptr){  //EOL
+      std::cout << "EOL" << std::endl;
+      return head;
+  }else{
+    //Most Likely have to use head recursion
+      //Tail Recursion
+      
+     // Node* temp = head;
+      if(pred(head->val)){
+          std::cout << head->val << " is not 8" << std::endl;
 
+          //head = head->next;
+          //delete temp;
+      }else{
+          std::cout << head->val << " is 8" << std::endl;
+          //head = head->next;
+      }
 
+      
+      
+      return llfilter(head->next, pred);  //Don't return here
+     
+
+  }
+*/
+    //Node* filter = new Node(0, nullptr);
+    Node* filter = nullptr;
+    return llfilter_Helper(head, filter, pred);
+}
+
+template <typename Comp>
+Node* llfilter_Helper(Node* head, Node*& filter_temp, Comp pred){
+    //Node* temp = new Node(head->val, )
+     //*********************************************
+    // Provide your implementation below
+    //*********************************************
+  if(head == nullptr){  //EOL
+      //EXTRA
+      filter_temp = nullptr;
+      //EXTRA
+      //std::cout << "nullptr" << std::endl;
+      return nullptr;
+  }else{
+    //Most Likely have to use head recursion
+      //Tail Recursion
+
+    /*
+      if(pred(head->val)){
+          //filter_temp = new Node(head->val, llfilter_Helper(head->next, filter_temp, pred));  //Tail Recursion so start from back or EOL. Use Tail Recursion to fill up another linked list with new Nodes
+          //return filter_temp;
+          return llfilter_Helper(head->next, filter_temp, pred);
+      }else{
+          filter_temp = new Node(head->val, llfilter_Helper(head->next, filter_temp, pred));  //Tail Recursion so start from back or EOL. Use Tail Recursion to fill up another linked list with new Nodes
+          return filter_temp;
+
+          //std::cout << head->val << " is 8" << std::endl;
+          //return llfilter_Helper(head->next, filter_temp, pred);
+      }
+    */
+    
+    //std::cout << head->val << std::endl;
+    Node* temp = nullptr;
+    if(pred(head->val)){  //Filter out
+        //std::cout << "FILTER BEFORE filter_temp->val: " << filter_temp->val << std::endl;
+        temp = llfilter_Helper(head->next, filter_temp, pred);
+        //std::cout << "FILTER AFTER filter_temp->val: " << filter_temp->val << std::endl;
+        delete head;
+        return filter_temp;
+    }else{  //Keep
+        filter_temp = head;
+        //std::cout << "KEEP BEFORE head->val: " << head->val << std::endl;
+        temp = llfilter_Helper(head->next, filter_temp->next, pred);
+        //std::cout << "KEEP AFTER head->val: " << head->val << std::endl;
+        //std::cout << "FILTER_TEMP ELSE->val: " << filter_temp->val << std::endl;
+        return filter_temp;
+    }
+     
+
+  }
 }
 
 #endif

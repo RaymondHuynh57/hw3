@@ -67,9 +67,17 @@ void dealloc(Node* head)
 //   function object struct declarations
 // -----------------------------------------------
 
+struct NotEight{
+    bool operator()(const int& value){return value != 8;}
+};
 
+struct Odd{
+    bool operator()(const int& value){return value & 2 != 0;}
+};
 
-
+struct Even{
+    bool operator()(const int& value){return value % 2 == 0;}
+};
 
 int main(int argc, char* argv[])
 {
@@ -88,8 +96,37 @@ int main(int argc, char* argv[])
     // Test out your linked list code
 
 
+   Node* list = new Node(3, nullptr);
+   list->next = new Node(2, nullptr);
+   //list->next->next = new Node(6, nullptr);
+   Odd o1;
+   Even e1;
+	Node* small = (Node*) &list; // set to a non-null address
+	Node* large = (Node*) &list; // set to a non-null address
+  Node* result = llfilter(list, e1);
+	//llpivot(list, small, large, 3);
+/*
+  if(list == nullptr){
+      cout << "LIST IS NULLPTR" << endl;
+  }
+*/
+  cout << "RESULT: ";
+  print(result);
+  cout << endl;
 
-    
-    return 0;
+ /*
+  cout << "SMALL: ";
+  print(small);
+  cout << endl;
+
+  cout << "LARGE: ";
+  print(large);
+  cout << endl;
+
+  cout << "LIST: ";
+  print(list);
+  cout << endl;
+*/
+  return 0;
 
 }
