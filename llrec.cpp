@@ -38,29 +38,6 @@
  *
  */
 void llpivot(Node *&head, Node *&smaller, Node *&larger, int pivot){
-/*
-    if(head == nullptr){  //EOL
-        larger = nullptr;
-        smaller = nullptr;
-    }else{
-        //Tail Recursion
-        //std::cout << head->val << std::endl;
-
-        
-        if(head->val < pivot){
-            smaller = head;
-            llpivot(head->next, smaller->next, larger, pivot);
-        }else if(head->val > pivot){
-            larger = head;
-            std::cout << "larger->val: " << larger->val << std::endl;
-            llpivot(head->next, smaller, larger->next, pivot);
-        }
-        
-
-        //head = nullptr;
-        //llpivot(head->next, smaller->next, larger->next, pivot);
-    }
-  */
     llpivot_Helper(head, smaller, larger, pivot, 0);
 }
 
@@ -73,42 +50,17 @@ void llpivot_Helper(Node *&head, Node *&smaller, Node *&larger, int pivot, int c
         smaller = nullptr;
     }else{
         //Tail Recursion
-        //std::cout << head->val << std::endl;
-        //std::cout << "RECURSION" << std::endl;
         if(head->val <= pivot){
             smaller = head;
-            //std::cout << "head memory smaller: " << head << std::endl;
             llpivot_Helper(head->next, smaller->next, larger, pivot, counter + 1);
         }else if(head->val > pivot){
             larger = head;
-            
-            //std::cout << "larger->val: " << larger->val << std::endl;
-            //std::cout << "head memory larger: " << head << std::endl;
-            
-
             llpivot_Helper(head->next, smaller, larger->next, pivot, counter + 1);
             
         }
-        
-        
-
           if(counter == 0){ //This is the first part of the recursion where you will set head to nullptr
               head = nullptr;
           }
     }
-    
-
-
-/*
-    if(head == nullptr){
-        std::cout << "EOL" << std::endl;
-    }else{
-        std::cout << "RECURSION: " << head << std::endl;
-        llpivot_Helper(head->next, smaller, larger, pivot, counter + 1);
-        std::cout << "END RECURSION: " << head << std::endl;
-        head = nullptr;
-        std::cout << "END RECURSION 2: " << head << std::endl;
-    }
-*/
 }
 

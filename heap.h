@@ -1,6 +1,6 @@
 #ifndef HEAP_H
 #define HEAP_H
-#include <iostream>
+//#include <iostream>
 #include <functional>
 #include <stdexcept>
 #include <vector>
@@ -73,11 +73,7 @@ private:
 
 template <typename T, typename PComparator>
 Heap<T, PComparator>::Heap(int m, PComparator c): m_ary(m), predicate(c){
-/*
-    m_ary = m;
-    predicate = c;
-*/
-    //std::cout << "HEAP CONSTRUCTOR" << std::endl;
+
 }
 
 template <typename T, typename PComparator>
@@ -86,19 +82,11 @@ Heap<T, PComparator>::~Heap(){
 }
 template <typename T, typename PComparator>
 void Heap<T, PComparator>::push(const T& item){
-    //std::cout << "PUSH " << item << std::endl;
     vector_heap.push_back(item);
-    //std::cout << "item: " << item << std::endl;
     int beg_index = (int) (vector_heap.size() - 1);
     while(true){  //Use while true and then break based off of an if condition fron now on
-        //int parent_index = (beg_index/2) - 1;
         int parent_index = ((beg_index - 1)/2);
-        //std::cout << "WHILE LOOP" << std::endl;
-        //std::cout << "PARENT INDEX: " << parent_index << std::endl;
-        //std::cout << std::boolalpha << "TRUE OR FALSE: " << predicate(vector_heap[beg_index], vector_heap[parent_index]) << std::endl;
         if(parent_index >= 0 && predicate(vector_heap[beg_index], vector_heap[parent_index])){
-            //std::cout << "SWAP" << std::endl;
-            //std::swap(vector_heap[parent_index], vector_heap[beg_index]);
             std::swap(vector_heap[beg_index], vector_heap[parent_index]);
             beg_index = parent_index;
         }else{
@@ -119,7 +107,6 @@ T const & Heap<T,PComparator>::top() const
 {
   // Here we use exceptions to handle the case of trying
   // to access the top element of an empty heap
-    //std::cout << "TOP" << std::endl;
   if(empty()){
     // ================================
     // throw the appropriate exception
@@ -127,7 +114,7 @@ T const & Heap<T,PComparator>::top() const
     throw std::underflow_error("Underflow Error");
 
   }
-  //std::cout << "TOP: " << vector_heap[0] << " END" << std::endl;
+
   // If we get here we know the heap has at least 1 item
   // Add code to return the top element
   return vector_heap[0];
@@ -149,8 +136,6 @@ void Heap<T,PComparator>::pop()
     throw std::underflow_error("Underflow Error");
 
   }
-  //vector_heap.pop_back();
-  //Steps
 
   std::swap(vector_heap[0], vector_heap[vector_heap.size() - 1]);
   vector_heap.pop_back();
