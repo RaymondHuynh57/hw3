@@ -4,7 +4,7 @@
 
 #include "gate.h"
 #include "wire.h"
-
+//
 Gate::Gate(int num_inputs, Wire* output) 
 	: m_output(output), m_inputs(num_inputs), m_delay(0), m_current_state('X')
 {

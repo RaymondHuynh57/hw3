@@ -5,7 +5,7 @@
 #include "../heap.h"
 #include "event.h"
 #include "gate.h"
-
+//
 class Circuit 
 {
 	public:

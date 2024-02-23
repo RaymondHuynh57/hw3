@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-
+//
 #include "wire.h"
 
 Wire::Wire(int id, std::string name) : m_state('X'), m_name(name), m_id(id)

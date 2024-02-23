@@ -5,7 +5,7 @@
 #include <tuple>
 #include "event.h"
 #include "wire.h"
-
+//
 /*
   In gate.h and gate.cpp add an implementation of a single input NOT
    gate called NotGate that derives from Gate. It should implement 
